@@ -474,7 +474,7 @@ namespace Polly.Specs.Fallback
 
             fallbackPolicy.Awaiting(p => p.ExecuteAndCaptureAsync(_ => Task.FromResult(ResultPrimitive.Fault),
                     new { key1 = "value1", key2 = "value2" }.AsDictionary()))
-                .Should().NotThrow();
+                .Should().NotThrowAsync();
 
             contextData.Should()
                 .ContainKeys("key1", "key2").And
@@ -660,7 +660,7 @@ namespace Polly.Specs.Fallback
             cancellationTokenSource.Cancel();
 
             policy.Awaiting(x => x.RaiseResultSequenceAndOrCancellationAsync(scenario, cancellationTokenSource, onExecute, ResultPrimitive.Fault))
-                .Should().Throw<OperationCanceledException>()
+                .Should().ThrowAsync<OperationCanceledException>()
                 .And.CancellationToken.Should().Be(cancellationToken);
             attemptsInvoked.Should().Be(0);
 
@@ -692,7 +692,7 @@ namespace Polly.Specs.Fallback
             };
 
             policy.Awaiting(x => x.RaiseResultSequenceAndOrCancellationAsync(scenario, cancellationTokenSource, onExecute, ResultPrimitive.Good))
-                .Should().Throw<OperationCanceledException>()
+                .Should().ThrowAsync<OperationCanceledException>()
                 .And.CancellationToken.Should().Be(cancellationToken);
             attemptsInvoked.Should().Be(1);
 

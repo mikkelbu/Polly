@@ -34,7 +34,7 @@ namespace Polly.Specs.Custom
             bool executed = false;
 
             policy.Awaiting(x => x.ExecuteAsync(() => { executed = true; return Task.CompletedTask; }))
-                .Should().NotThrow();
+                .Should().NotThrowAsync();
 
             executed.Should().BeTrue();
             preExecuted.Should().BeTrue();
@@ -70,7 +70,7 @@ namespace Polly.Specs.Custom
                 executed = true;
                 throw toThrow;
             }))
-                .Should().Throw<Exception>().Which.Should().Be(toThrow);
+                .Should().ThrowAsync<Exception>().Which.Should().Be(toThrow);
 
             executed.Should().BeTrue();
             handled.Should().Be(toThrow);
@@ -90,7 +90,7 @@ namespace Polly.Specs.Custom
                     executed = true;
                     throw toThrow;
                 }))
-                .Should().Throw<Exception>().Which.Should().Be(toThrow);
+                .Should().ThrowAsync<Exception>().Which.Should().Be(toThrow);
 
             executed.Should().BeTrue();
             handled.Should().Be(null);

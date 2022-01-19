@@ -103,7 +103,7 @@ namespace Polly.Specs
                 .RetryAsync((_, _, _) => { });
 
             policy.Awaiting(p => p.ExecuteAsync(_ => Task.FromResult(ResultPrimitive.Good), (IDictionary<string, object>)null))
-                  .Should().Throw<ArgumentNullException>();
+                  .Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -114,7 +114,7 @@ namespace Polly.Specs
                 .RetryAsync((_, _, _) => { });
 
             policy.Awaiting(p => p.ExecuteAsync(_ => Task.FromResult(ResultPrimitive.Good), (Context)null))
-                  .Should().Throw<ArgumentNullException>().And
+                  .Should().ThrowAsync<ArgumentNullException>().And
                   .ParamName.Should().Be("context");
         }
 
@@ -126,7 +126,7 @@ namespace Polly.Specs
                 .RetryAsync((_, _, _) => { });
 
             policy.Awaiting(p => p.ExecuteAndCaptureAsync(_ => Task.FromResult(ResultPrimitive.Good), (Context)null))
-                  .Should().Throw<ArgumentNullException>().And
+                  .Should().ThrowAsync<ArgumentNullException>().And
                   .ParamName.Should().Be("context");
         }
 
@@ -152,7 +152,7 @@ namespace Polly.Specs
                 .RetryAsync((_, _, _) => { });
 
             policy.Awaiting(p => p.ExecuteAndCaptureAsync(_ => Task.FromResult(ResultPrimitive.Good), (Context)null))
-                  .Should().Throw<ArgumentNullException>().And
+                  .Should().ThrowAsync<ArgumentNullException>().And
                   .ParamName.Should().Be("context");
         }
 
